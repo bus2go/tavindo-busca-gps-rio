@@ -1,36 +1,9 @@
-var sqlite = require('sqlite3');
-var mysql = require('mysql');
 var pg = require('pg');
 
-const CONNECTION = "POSTGRES";
 const CONN_STRING = "postgres://postgres:280985@localhost/postgres";
 
-var db = null;
+var db = pg;
 
-if(CONNECTION == "SQLITE") {
-    db = new sqlite.Database(__dirname + '/dados/4doidao.db');
-} else if(CONNECTION == "MYSQL") {
-    db = mysql.createPool({
-        connectionLimit : 1,
-        host : 'lalkmim-tavindo-1521557',
-        user : 'lalkmim',
-        database: 'c9'
-    });
-} else if(CONNECTION == "POSTGRES") {
-    db = pg; /*
-    db = pg.createPool({
-        connectionLimit : 1,
-        host : 'lalkmim-tavindo-1521557',
-        user : 'lalkmim',
-        database: 'c9'
-    });
-    */
-}
-
-//db.query("use c9");
-
-//db.serialize(function() {
-//db.getConnection(function(err, connection) {
 db.connect(CONN_STRING, function(err, connection, done) {
     if(err) throw err;
     /*
