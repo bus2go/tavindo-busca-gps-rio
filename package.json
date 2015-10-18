@@ -1,0 +1,19 @@
+{
+  "name": "tavindo-busca-gps",
+  "version": "1.0.0",
+  "description": "Recupera as informações dos GPS dos ônibus do Rio de Janeiro",
+  "main": "busca-gps.js",
+  "dependencies": {
+    "request": "^2.65.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:lalkmim/tavindo-busca-gps.git"
+  },
+  "author": "lalkmim",
+  "license": "ISC"
+}
