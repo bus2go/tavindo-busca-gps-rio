@@ -1,6 +1,6 @@
 var request = require('request');
 var db = require('./db');
-var Util = require('.util');
+var Util = require('./util');
 
 var counterA = 0;
 var counterB = 0;
