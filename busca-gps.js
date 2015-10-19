@@ -110,4 +110,5 @@ var loadGPS = function() {
   });
 };
 
-loadGPS();
+setTimeout(loadGPS, 1);
+setInterval(loadGPS, 45 * 1000);

@@ -1,6 +1,6 @@
 var pg = require('pg');
 
-const CONN_STRING = "postgres://postgres:280985@localhost/postgres";
+const CONN_STRING = "postgres://tavindo_user:020591@localhost/tavindo";
 
 var db = pg;
 
