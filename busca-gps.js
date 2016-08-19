@@ -120,6 +120,7 @@ var parseData = (loadedData) => {
       lon: row[4]
     });
     
+    console.log('dados.get(linha)', dados.get('linha'));
     if(dados.linha == '422') {
       console.log('busList[' + dados.ordem + ']', busList[dados.ordem]);
       console.log('dados', dados);
