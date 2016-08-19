@@ -121,7 +121,7 @@ var parseData = (currentData, loadedData) => {
     
     if(!currentData[dados.linha]) {
       currentData[dados.linha] = {
-        ordens: []
+        ordens: {}
       };
       
       socket.emit('join', dados.linha);
