@@ -121,13 +121,13 @@ var parseData = (loadedData) => {
     });
     
     if(dados.get('linha') == '422') {
-      console.log('busList[' + dados.get('ordem') + ']', busList[dados.get('ordem')]);
+      console.log('busList[' + dados.get('ordem') + ']', busList.get(dados.get('ordem')));
       console.log('dados', dados);
       console.log('busList[' + dados.get('ordem') + '].equals(dados)', dados.equals(busList.get(dados.get('ordem'))));
     }
     
     if(!busList.get(dados.get('ordem')) || !dados.equals(busList.get(dados.get('ordem')))) {
-      socket.emit('bus.update', dados);
+      socket.emit('bus.update', dados.toObject());
       busList = busList.set(dados.get('ordem'), dados);
     }
   }
