@@ -4,12 +4,13 @@
   "description": "Recupera as informações dos GPS dos ônibus do Rio de Janeiro",
   "main": "busca-gps.js",
   "dependencies": {
-    "pg": "^4.4.3",
-    "request": "^2.65.0"
+    "pg": "^6.0.3",
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -v && node busca-gps.js"
   },
   "repository": {
     "type": "git",

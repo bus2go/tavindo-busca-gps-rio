@@ -1,3 +1,9 @@
+# Environment files
 .c9
-node_modules
 
+# Runtime files
+node_modules
+*.log
+
+# Project files
+config.js

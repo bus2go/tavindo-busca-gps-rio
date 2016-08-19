@@ -1,11 +1,15 @@
 var pg = require('pg');
+var config = require('./config');
 
-const CONN_STRING = "postgres://tavindo_user:020591@localhost/tavindo";
+//const CONN_STRING = "postgres://tavindo_user:020591@localhost/tavindo";
 
 var db = pg;
 
-db.connect(CONN_STRING, function(err, connection, done) {
-    if(err) throw err;
+db.connect(config.connString, function(err, connection, done) {
+    if(err) {
+        console.log('err', err);
+        throw err;
+    }
     /*
     connection.query('DROP TABLE IF EXISTS distancia',
         function(err, rows, fields) {
@@ -100,4 +104,4 @@ db.connect(CONN_STRING, function(err, connection, done) {
 });
 
 module.exports = db;
-module.exports.connString = CONN_STRING;
+module.exports.connString = config.connString;
