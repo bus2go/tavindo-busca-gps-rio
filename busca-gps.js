@@ -120,11 +120,10 @@ var parseData = (loadedData) => {
       lon: row[4]
     });
     
-    console.log('dados.get(linha)', dados.get('linha'));
-    if(dados.linha == '422') {
-      console.log('busList[' + dados.ordem + ']', busList[dados.ordem]);
+    if(dados.get('linha') == '422') {
+      console.log('busList[' + dados.get('ordem') + ']', busList[dados.get('ordem')]);
       console.log('dados', dados);
-      console.log('busList[' + dados.ordem + '].equals(dados)', busList[dados.ordem].equals(dados));
+      console.log('busList[' + dados.get('ordem') + '].equals(dados)', busList[dados.get('ordem')].equals(dados));
     }
     
     if(!busList[dados.ordem] || !busList[dados.ordem].equals(dados)) {
