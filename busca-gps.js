@@ -127,6 +127,8 @@ var parseData = (currentData, loadedData) => {
       socket.emit('join', dados.linha);
       
       socket.on('last.load', linha => {
+        console.log('last.load.linha', linha, currentData[linha]);
+        
         socket.emit('last', { linha: linha, dados: currentData[linha] });
       });
     }
