@@ -123,7 +123,7 @@ var parseData = (loadedData) => {
     if(dados.get('linha') == '422') {
       console.log('busList[' + dados.get('ordem') + ']', busList[dados.get('ordem')]);
       console.log('dados', dados);
-      console.log('busList[' + dados.get('ordem') + '].equals(dados)', busList[dados.get('ordem')].equals(dados));
+      console.log('busList[' + dados.get('ordem') + '].equals(dados)', busList.get(dados.get('ordem')).equals(dados));
     }
     
     if(!busList[dados.ordem] || !busList[dados.ordem].equals(dados)) {
