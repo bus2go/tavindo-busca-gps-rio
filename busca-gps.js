@@ -2,7 +2,7 @@
 var http = require('http');
 var db = require('./db');
 //var Util = require('./util');
-var client = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
+var socket = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
 
 var counterA = 0;
 var counterB = 0;
@@ -10,7 +10,6 @@ var ultimaDataHora = Infinity;
 var currentData = {
   linhas: {}
 };
-var roomPrefix = 'linha_';
 
 var loadGPS = function() {
   var options = {
@@ -125,11 +124,10 @@ var parseData = (currentData, loadedData) => {
         ordens: []
       };
       
-      var room = roomPrefix + dados.linha;
-      client.emit('join', room);
+      socket.emit('join', dados.linha);
       
-      client.on('last.load', () => {
-        client.emit('last', { linha: dados.linha, dados: currentData[dados.linha] });
+      socket.on('last.load', () => {
+        socket.emit('last', { linha: dados.linha, dados: currentData[dados.linha] });
       });
     }
     
