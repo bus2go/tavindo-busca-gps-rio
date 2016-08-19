@@ -126,13 +126,16 @@ var parseData = (currentData, loadedData) => {
       };
       
       var room = roomPrefix + dados.linha;
-      client.join(room, err => {
+      client.emit('join', room);
+      
+      /*, err => {
         if(err) console.log('err', room, err);
         
         client.in(room).on('last.load', () => {
           client.in(room).emit('last', { linha: dados.linha, dados: currentData[dados.linha] });
         });
       });
+      */
     }
     
     if(!currentData[dados.linha].ordens[dados.ordem]) {
