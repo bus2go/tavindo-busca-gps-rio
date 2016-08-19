@@ -126,11 +126,9 @@ var parseData = (currentData, loadedData) => {
       
       socket.emit('join', dados.linha);
       
-      socket.on('last.load', function(linha) {
-        return function() {
-          socket.emit('last', { linha: linha, dados: currentData[dados[linha]] });
-        };
-      }(dados.linha));
+      socket.on('last.load', linha => {
+        socket.emit('last', { linha: linha, dados: currentData[linha] });
+      });
     }
     
     if(!currentData[dados.linha].ordens[dados.ordem]) {
