@@ -126,9 +126,11 @@ var parseData = (currentData, loadedData) => {
       
       socket.emit('join', dados.linha);
       
-      socket.on('last.load', () => {
-        socket.emit('last', { linha: dados.linha, dados: currentData[dados.linha] });
-      });
+      socket.on('last.load', function(linha) {
+        return function() {
+          socket.emit('last', { linha: linha, dados: currentData[dados[linha]] });
+        };
+      }(dados.linha));
     }
     
     if(!currentData[dados.linha].ordens[dados.ordem]) {
@@ -137,10 +139,9 @@ var parseData = (currentData, loadedData) => {
       };
     }
     
+    // TODO soh adicionar GPS se ele ainda não tiver sido incluido
     currentData[dados.linha].ordens[dados.ordem].gps.push(dados);
   }
-  
-  console.log('currentData.434', currentData['434']);
 };
 
 setTimeout(loadGPS, 1);
