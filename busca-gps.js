@@ -126,9 +126,9 @@ var parseData = (loadedData) => {
       console.log('busList[' + dados.get('ordem') + '].equals(dados)', dados.equals(busList.get(dados.get('ordem'))));
     }
     
-    if(!busList[dados.ordem] || !busList[dados.ordem].equals(dados)) {
+    if(!busList.get(dados.get('ordem')) || !dados.equals(busList.get(dados.get('ordem')))) {
       socket.emit('bus.update', dados);
-      busList[dados.ordem] = dados;
+      busList = busList.set(dados.get('ordem'), dados);
     }
   }
 };
