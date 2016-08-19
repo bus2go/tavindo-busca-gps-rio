@@ -2,7 +2,7 @@
 var http = require('http');
 var db = require('./db');
 //var Util = require('./util');
-var socket = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
+var sockets = {};
 
 var counterA = 0;
 var counterB = 0;
@@ -119,6 +119,8 @@ var parseData = (currentData, loadedData) => {
       lon: row[4]
     };
     
+    var socket = connect(dados.linha);
+    
     if(!currentData[dados.linha]) {
       currentData[dados.linha] = {
         ordens: {}
@@ -142,6 +144,15 @@ var parseData = (currentData, loadedData) => {
     
     socket.emit('last', { linha: linha, dados: currentData[linha] });
   });
+};
+
+var connect = linha => {
+  linha += '';
+  if(!sockets[linha]) {
+    sockets[linha] = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000) + '/' + linha);
+  }
+  
+  return sockets[linha];
 };
 
 setTimeout(loadGPS, 1);
