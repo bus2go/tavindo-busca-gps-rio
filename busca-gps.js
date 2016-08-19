@@ -2,6 +2,7 @@
 var http = require('http');
 var db = require('./db');
 //var Util = require('./util');
+var defaultSocket = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
 var sockets = {};
 
 var counterA = 0;
@@ -10,6 +11,7 @@ var ultimaDataHora = Infinity;
 var currentData = {
   linhas: {}
 };
+var nspPrefix = '/linha_';
 
 var loadGPS = function() {
   var options = {
@@ -119,14 +121,21 @@ var parseData = (currentData, loadedData) => {
       lon: row[4]
     };
     
-    var socket = connect(dados.linha);
+    defaultSocket.emit('join', dados.linha);
+    defaultSocket.on('nsp', linha => {
+      var socket = connect(linha);
+      
+      socket.on('last.load', linha => {
+        console.log('last.load.linha', linha, currentData[linha]);
+        
+        socket.emit('last', { linha: linha, dados: currentData[linha] });
+      });
+    });
     
     if(!currentData[dados.linha]) {
       currentData[dados.linha] = {
         ordens: {}
       };
-      
-      socket.emit('join', dados.linha);
     }
     
     if(!currentData[dados.linha].ordens[dados.ordem]) {
@@ -135,21 +144,18 @@ var parseData = (currentData, loadedData) => {
       };
     }
     
-    // TODO soh adicionar GPS se ele ainda não tiver sido incluido
-    currentData[dados.linha].ordens[dados.ordem].gps.push(dados);
+    var gpsList = currentData[dados.linha].ordens[dados.ordem].gps;
+    if(gpsList.length > 0 && gpsList[gpsList.length - 1].dataHora != dados.dataHora) {
+      if(gpsList.length > 4) currentData[dados.linha].ordens[dados.ordem].gps.shift();
+      currentData[dados.linha].ordens[dados.ordem].gps.push(dados);
+    }
   }
-  
-  socket.on('last.load', linha => {
-    console.log('last.load.linha', linha, currentData[linha]);
-    
-    socket.emit('last', { linha: linha, dados: currentData[linha] });
-  });
 };
 
 var connect = linha => {
   linha += '';
   if(!sockets[linha]) {
-    sockets[linha] = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000) + '/' + linha);
+    sockets[linha] = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000) + nspPrefix + linha);
   }
   
   return sockets[linha];
