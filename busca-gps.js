@@ -1,6 +1,6 @@
 //var request = require('request');
 var http = require('http');
-var db = require('./db');
+//var db = require('./db');
 //var Util = require('./util');
 var defaultSocket = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
 var sockets = {};
@@ -38,7 +38,7 @@ var loadGPS = function() {
       
       parseData(currentData, data.DATA);
       return;
-      
+      /*
       var stmtLinha = "INSERT INTO linha (linha, id_municipio) SELECT $1, 1 WHERE NOT EXISTS (SELECT 1 FROM linha WHERE linha = $2)";
       var stmtGPS = 'INSERT INTO gps (dataHora, ordem, id_linha, lat, lon, velocidade) SELECT $1, $2, (SELECT id FROM linha WHERE linha = $3), $4, $5, $6 WHERE NOT EXISTS (SELECT id FROM gps WHERE dataHora = $7 AND ordem = $8)';
       
@@ -103,6 +103,7 @@ var loadGPS = function() {
           }
         });
       });
+      */
     });
   }).on('error', err => {
     console.log('err', err);
