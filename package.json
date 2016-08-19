@@ -4,6 +4,7 @@
   "description": "Recupera as informações dos GPS dos ônibus do Rio de Janeiro",
   "main": "busca-gps.js",
   "dependencies": {
+    "immutable": "^3.8.1",
     "pg": "^6.0.3",
     "socket.io-client": "^1.4.8"
   },
