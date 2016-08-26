@@ -55,4 +55,4 @@ var parseData = (loadedData) => {
 };
 
 setTimeout(loadGPS, 1);
-setInterval(loadGPS, 45 * 1000);
+setInterval(loadGPS, 10 * 1000);
