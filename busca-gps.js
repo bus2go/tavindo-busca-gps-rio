@@ -2,8 +2,9 @@ var http = require('http');
 var Immutable = require('immutable');
 var socket = require('socket.io-client').connect('http://localhost:' + (process.env.PORT || 3000));
 
-var counterA = 0;
+var counter = 0;
 var busList = Immutable.Map({});
+const CIDADE = 'Rio de Janeiro';
 
 var loadGPS = function() {
   var options = {
@@ -26,7 +27,7 @@ var loadGPS = function() {
     
     res.on('end', () => {
       var data = JSON.parse(body);
-      console.log('>>> inicio', counterA++, new Date());
+      console.log('>>> inicio', counter++, new Date());
       
       parseData(data.DATA);
     });
@@ -48,7 +49,7 @@ var parseData = (loadedData) => {
     });
     
     if(!busList.get(dados.get('ordem')) || !dados.equals(busList.get(dados.get('ordem')))) {
-      socket.emit('bus.update', dados.toObject());
+      socket.emit('bus.update', { city: CIDADE, data: dados.toObject() });
       busList = busList.set(dados.get('ordem'), dados);
     }
   }
